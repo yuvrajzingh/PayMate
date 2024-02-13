@@ -32,7 +32,7 @@ function App() {
   async function getNameAndBalance() {
     let res;
     try {
-      res = await axios.get(`https://paymate-server.vercel.app/getNameAndBalance`, {
+      res = await axios.get(`https://paymate-server-hcvp3fegi-yuvrajzingh.vercel.app/getNameAndBalance`, {
         params: { userAddress: address },
       });
     } catch (error) {
