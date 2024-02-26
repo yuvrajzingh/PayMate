@@ -11,7 +11,13 @@ const cors = require("cors");
 const port = 3001;
 const ABI = require("./abi.json");
 
-app.use(cors());
+const corsConfig = {
+  origin: "*",
+  Credential: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+};
+app.options("", cors(corsConfig));
+app.use(cors(corsConfig));
 app.use(express.json());
 
 
