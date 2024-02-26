@@ -16,7 +16,7 @@ function App() {
 
   const [name, setName] = useState("...");
   const [balance, setBalance] = useState("...");
-  const [dollars, setDollars] = useState("...");
+  const [rupees, setRupees] = useState("...");
   const [history, setHistory] = useState(null);
   const [requests, setRequests] = useState({"1": [0], "0": [] });
 
@@ -32,7 +32,7 @@ function App() {
   async function getNameAndBalance() {
     let res;
     try {
-      res = await axios.get(`https://paymate-server-hcvp3fegi-yuvrajzingh.vercel.app/getNameAndBalance`, {
+      res = await axios.get(`https://paymate-server-tu1z.onrender.com/getNameAndBalance`, {
         params: { userAddress: address },
       });
     } catch (error) {
@@ -41,16 +41,14 @@ function App() {
     }
   
     const response = res.data;
-    console.log(response);
-  
-  
+    console.log(response.requests);
+
     if (response && response.name && response.name[1]) { // just checking if the user has a name then setting the name to the name
       setName(response.name[0]);
-    }
-    
+    }   
 
     setBalance(response.balance);
-    setDollars(response.dollars);
+    setRupees(response.rupees);
     setHistory(response.history);
     setRequests(response.requests);
   }
@@ -65,47 +63,42 @@ function App() {
     setName("...");
     setBalance("...");
     setBalance("...");
-    setDollars("...");
+    setRupees("...");
     setHistory(null);
     setRequests({"1": [0], "0": [] });   
   }
 
   
   return (
-    <div className="App">
-      <Layout>
-        <Header className="header">
-          <div className="headerLeft">
-            <img src={logo} width={200} height={200} alt="logo" className="logo" />
+    <div className="">
+        <Header className="shadow-xl bg-white flex justify-between items-center border-solid border-b-2 border-sky-600 ">
+          <img src={logo} width={200} height={200} alt="logo" className="h-[40px]" />
+          <div className="flex justify-between items-center font-medium italic text-lg">
+            
             {isConnected ? (
                 <>
-                <div
-                  className="menuOption"
-                  style={{ borderBottom: "1.5px solid black" }}
-                >
-                  Summary
-                </div>
+                <div className="menuOption text-sky-600 border-2 border-b-sky-600 ">Summary</div>
                 <div className="menuOption">Activity</div>
                 <div className="menuOption">{`Send & Request`}</div>
                 <div className="menuOption">Wallet</div>
                 <div className="menuOption">Help</div>
               </>
             ) : (
-              <p>Connect your wallet to get started</p>
+              <p className="">Connect your wallet to get started ➡️</p>
             )
               
             }                               
           </div>
-            { isConnected ? <Button className="connectBtn" onClick={()=>{ disconnectAndSetNull()}}>Disconnect Wallet</Button>
-             : <Button className="connectBtn" onClick={()=>{ connect()}}>Connect Wallet</Button>
+            { isConnected ? <Button className="bg-sky-600 text-white hover:text-white hover:bg-white" onClick={()=>{ disconnectAndSetNull()}}>Disconnect Wallet</Button>
+             : <Button className="bg-sky-600 text-white hover:text-black hover:bg-white" onClick={()=>{ connect()}}>Connect Wallet</Button>
             }
           
         </Header>
-        <Content className="content">
+        <Content className="flex justify-center min-h-[100vh] bg-gradient-radial bg-cover bg-no-repeat bg-center">
           {isConnected && (
-            <>
-              <div className="firstColumn">
-                <CurrentBalance dollars={dollars} />
+            <div className="mt-20 flex justify-center gap-20">
+              <div className="firstColumn w-[500px] min-h-[200px]">
+                <CurrentBalance rupees={rupees} />
                 <RequestAndPay requests={requests} getNameAndBalance={getNameAndBalance}/> 
                 {/* passing getNameAndBalance so that when a user makes a payment we get a new call to the backend and get latest transactions and remove the requests we've already paid */}
                 <AccountDetails 
@@ -113,13 +106,12 @@ function App() {
                   name={name} 
                   balance={balance} />
               </div>  
-              <div className="secondColumn">
+              <div className="secondColumn w-[800px] min-h-[200px]">
                 <RecentActivity history={history}/>
               </div>
-            </>
+            </div>
           )}
         </Content>
-      </Layout>
     </div>
   );
 }

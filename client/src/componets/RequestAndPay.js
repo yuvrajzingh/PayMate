@@ -33,14 +33,14 @@ function RequestAndPay({requests, getNameAndBalance}) {
     chainId: polygonMumbai.id,
     address: "0x634fb013eCB5dF92d00e617f1f87B10fAa21B9E5",
     abi: ABI,
-    functionName: "createRequests",
+    functionName: "createRequest",
     arg: [requestAddress, requestAmount, requestMessage],
   });
 
-  const { write: writeRequests, data: dataRequests }  = useContractWrite(configRequest);
+  const { write: writeRequest, data: dataRequest }  = useContractWrite(configRequest);
 
   const { isSuccess: isSuccessRequests } = useWaitForTransaction({
-    hash: dataRequests?.hash,
+    hash: dataRequest?.hash,
   })
 
   //every time the isSuccess state changes we're gonna get our getNameAndBalance function run
@@ -91,7 +91,7 @@ function RequestAndPay({requests, getNameAndBalance}) {
         open={requestModal}
         onOk={() => {
           hideRequestModal();
-          writeRequests?.();
+          writeRequest?.();
         }}
         onCancel={hideRequestModal}
         okText="Proceed To Request"
@@ -104,7 +104,7 @@ function RequestAndPay({requests, getNameAndBalance}) {
         <p>Message</p>
         <Input placeholder="Lunch Bill..." value={requestMessage} onChange={(val)=>setRequestMessage(val.target.value)}/>
       </Modal>
-      <div className="requestAndPay">
+      <div className="w-full h-40 flex justify-center items-center gap-10">
         <div
           className="quickOption"
           onClick={() => {
@@ -114,11 +114,11 @@ function RequestAndPay({requests, getNameAndBalance}) {
           <DollarOutlined style={{ fontSize: "26px" }} />
           Pay
             {requests && requests["0"].length > 0 && (
-              <div className="numReqs">{requests["0"].length}</div>
+              <div className="absolute top[-5px] right[-5px] bg-red-500 h-6 w-6 rounded-full text-white font-bold flex justify-center items-center">{requests["0"].length}</div>
             )}
         </div>
         <div
-          className="quickOption"
+          className="quickOption "
           onClick={() => {
             showRequestModal();
           }}
