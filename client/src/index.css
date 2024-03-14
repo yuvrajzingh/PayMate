@@ -23,7 +23,7 @@ code {
 
 
 .extraOption {
-  @apply w-44 text-center border-2 border-blue-300 rounded-full font-semibold text-blue-700 transition-colors  hover:cursor-pointer hover:bg-sky-700 hover:text-white
+  @apply w-44 py-[3px] text-center border-2 border-blue-300 rounded-full font-semibold text-blue-700 transition-colors hover:cursor-pointer hover:bg-sky-700 hover:text-white
 }
 
 .quickOption {

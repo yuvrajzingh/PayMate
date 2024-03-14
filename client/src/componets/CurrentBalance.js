@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from "antd";
+import { Button, Card } from "antd";
 
 function CurrentBalance({rupees}) {
   return (
@@ -9,8 +9,8 @@ function CurrentBalance({rupees}) {
         <div style={{ fontSize: "20px" }}>Available</div>
       </div>
       <div className="mt-[20px] flex justify-center items-center gap-10">
-        <div className="extraOption">Swap Tokens</div>
-        <div className="extraOption">Bridge Tokens</div>
+        <button className="extraOption">Swap Tokens</button>
+        <button className="extraOption">Bridge Tokens</button>
       </div>
     </Card>
   );

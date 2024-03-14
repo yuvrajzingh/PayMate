@@ -27,8 +27,8 @@ function AccountDetails({address, name, balance}) {
         </div>
       </div>
       <div className="balanceOptions flex mt-[20px] justify-center items-center gap-5">
-        <div className="extraOption">Set Username</div>
-          <Button className="extraOption">Switch Accounts</Button>
+        <button className="extraOption">Set Username</button>
+        <button className="extraOption">Switch Accounts</button>
       </div>
     </Card>
   );
