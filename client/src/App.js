@@ -33,12 +33,12 @@ function App() {
   async function getNameAndBalance() {
     let res;
     try {
-    //   res = await axios.get(`https://paymate-server-tu1z.onrender.com/getNameAndBalance`, {
-    //     params: { userAddress: address },
-    //   });
-      res = await axios.get(`http://localhost:3001/getNameAndBalance`, {
+      res = await axios.get(`https://paymate-server-tu1z.onrender.com/getNameAndBalance`, {
         params: { userAddress: address },
       });
+      // res = await axios.get(`http://localhost:3001/getNameAndBalance`, {
+      //   params: { userAddress: address },
+      // });
     } catch (error) {
       console.error(error);
       return;
